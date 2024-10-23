@@ -1,0 +1,25 @@
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  margin: 2rem;
+  color: grey;
+  padding: 1rem;
+  background-color: rgb(50, 50, 50);
+  border-radius: 1rem;
+  box-shadow: 5px 5px 5px rgb(30, 30, 30);
+}
+
+#output {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1rem;
+  margin: 2rem;
+  color: white;
+  padding: 1rem;
+  background-color: rgb(50, 50, 50);
+  border-radius: 1rem;
+  box-shadow: 5px 5px 5px rgb(30, 30, 30);
+}
+
+body {
+  background-color: rgb(40, 40, 40);
+}
