@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>queryGenerator</title>
+    <style>
+      h1 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 2rem;
+        margin: 2rem;
+        color: grey;
+        padding: 1rem;
+        background-color: rgb(50, 50, 50);
+        border-radius: 1rem;
+        box-shadow: 5px 5px 5px rgb(30, 30, 30);
+      }
+
+      #input {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 1rem;
+        margin: 2rem;
+        color: white;
+        padding: 1rem;
+        background-color: rgb(50, 50, 50);
+        border-radius: 1rem;
+        box-shadow: 5px 5px 5px rgb(30, 30, 30);
+      }
+
+      .input-field {
+        background-color: rgb(40, 40, 40);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        height: 2rem;
+        margin: 0.5rem 0 0.5rem 0;
+      }
+
+      #output {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 1rem;
+        margin: 2rem;
+        color: white;
+        padding: 1rem;
+        background-color: rgb(50, 50, 50);
+        border-radius: 1rem;
+        box-shadow: 5px 5px 5px rgb(30, 30, 30);
+      }
+
+      #generate {
+        margin-left: 2rem;
+        border: 1pt solid black;
+      }
+
+      body {
+        background-color: rgb(40, 40, 40);
+      }
+
+      .container {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>queryGenerator</h1>
+    <div id="input">
+      <div class="container">
+        <label for="prefix">Präfix</label>
+        <input type="text" name="prefix" class="input-field" id="prefix" />
+      </div>
+      <div class="container">
+        <label for="separator">Trennzeichen</label>
+        <input
+          type="text"
+          name="separator"
+          class="input-field"
+          id="separator"
+        />
+      </div>
+      <div class="container">
+        <label for="list">Liste</label>
+        <input type="text" name="list" class="input-field" id="list" />
+      </div>
+      <div class="container">
+        <label for="suffix">Suffix</label>
+        <input type="text" name="suffix" class="input-field" id="suffix" />
+      </div>
+      <button id="generate" class="input-field">Query generieren</button>
+    </div>
+    <div id="output"></div>
+    <script>
+      //constructs the linebreak separated output from the user input
+      function makeQuery(myPrefix, myArray, mySuffix) {
+        let myOutput = myArray.map(
+          (arrayItem) => `${myPrefix}${arrayItem}${mySuffix}`
+        );
+        myOutput = myOutput.join("<br>");
+        document.getElementById("output").innerHTML = myOutput;
+      }
+
+      //calls the function after the user clicks the button
+      document.getElementById("generate").addEventListener("click", () => {
+        //takes user input for the required values
+        let myPrefix = document.getElementById("prefix").value;
+        let mySep = document.getElementById("separator").value;
+        let myArray = document.getElementById("list").value;
+        mySep
+          ? (myArray = myArray.split(mySep))
+          : (myArray = myArray.split(","));
+        let mySuffix = document.getElementById("suffix").value;
+        //calls the function that creates the output
+        makeQuery(myPrefix, myArray, mySuffix);
+      });
+    </script>
+  </body>
+</html>

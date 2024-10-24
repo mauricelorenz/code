@@ -8,6 +8,30 @@
   </head>
   <body>
     <h1>queryGenerator</h1>
+    <div id="input">
+      <div class="container">
+        <label for="prefix">Präfix</label>
+        <input type="text" name="prefix" class="input-field" id="prefix" />
+      </div>
+      <div class="container">
+        <label for="separator">Trennzeichen</label>
+        <input
+          type="text"
+          name="separator"
+          class="input-field"
+          id="separator"
+        />
+      </div>
+      <div class="container">
+        <label for="list">Liste</label>
+        <input type="text" name="list" class="input-field" id="list" />
+      </div>
+      <div class="container">
+        <label for="suffix">Suffix</label>
+        <input type="text" name="suffix" class="input-field" id="suffix" />
+      </div>
+      <button id="generate" class="input-field">Query generieren</button>
+    </div>
     <div id="output"></div>
     <script src="querygen.js"></script>
   </body>

@@ -1,19 +1,20 @@
 //constructs the linebreak separated output from the user input
 function makeQuery(myPrefix, myArray, mySuffix) {
   let myOutput = myArray.map(
-    (arrayItem, index) => `${myPrefix}${arrayItem}${mySuffix}`
+    (arrayItem) => `${myPrefix}${arrayItem}${mySuffix}`
   );
   myOutput = myOutput.join("<br>");
-  return myOutput;
+  document.getElementById("output").innerHTML = myOutput;
 }
 
-let myPrefix = prompt("Prefix");
-let mySep = prompt("Trennzeichen");
-let myArray = prompt("Liste").split(mySep);
-let mySuffix = prompt("Suffix");
-
-document.getElementById("output").innerHTML = makeQuery(
-  myPrefix,
-  myArray,
-  mySuffix
-);
+//calls the function after the user clicks the button
+document.getElementById("generate").addEventListener("click", () => {
+  //takes user input for the required values
+  let myPrefix = document.getElementById("prefix").value;
+  let mySep = document.getElementById("separator").value;
+  let myArray = document.getElementById("list").value;
+  mySep ? (myArray = myArray.split(mySep)) : (myArray = myArray.split(","));
+  let mySuffix = document.getElementById("suffix").value;
+  //calls the function that creates the output
+  makeQuery(myPrefix, myArray, mySuffix);
+});
