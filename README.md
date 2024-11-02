@@ -1,3 +1,4 @@
-# Test commit
+# Hi!
 
-This is a test commit for my repo
+I'm currently learning JavaScript.  
+In case you find something interesting here feel free to reach out to me.
