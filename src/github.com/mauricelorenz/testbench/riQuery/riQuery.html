@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>riQuery</title>
+  </head>
+  <body>
+    <h1>riQuery - Querygenerator Rechtfertigende Indikation</h1>
+    <div id="input">
+      <div id="ri">
+        <h2>RI</h2>
+        <label for="riro">RÖ</label><input type="checkbox" id="riro" />
+        <label for="rict">CT</label><input type="checkbox" id="rict" />
+        <label for="rimr">MR</label><input type="checkbox" id="rimr" />
+        <label for="rimg">MG</label><input type="checkbox" id="rimg" />
+        <label for="rius">US</label><input type="checkbox" id="rius" />
+      </div>
+      <div id="sc">
+        <h2>Schwangerschaft</h2>
+        <label for="scro">RÖ</label><input type="checkbox" id="scro" />
+        <label for="scct">CT</label><input type="checkbox" id="scct" />
+        <label for="scmr">MR</label><input type="checkbox" id="scmr" />
+        <label for="scmg">MG</label><input type="checkbox" id="scmg" />
+        <label for="scus">US</label><input type="checkbox" id="scus" />
+      </div>
+      <div id="gf">
+        <h2>GFR</h2>
+        <label for="gfro">RÖ</label><input type="checkbox" id="gfro" />
+        <label for="gfct">CT</label><input type="checkbox" id="gfct" />
+        <label for="gfmr">MR</label><input type="checkbox" id="gfmr" />
+        <label for="gfmg">MG</label><input type="checkbox" id="gfmg" />
+        <label for="gfus">US</label><input type="checkbox" id="gfus" />
+      </div>
+      <label for="del">andere Zuweisungen löschen</label
+      ><input type="checkbox" id="del" />
+      <button id="generate">Generate</button>
+    </div>
+    <div id="output"></div>
+    <script>
+      function generateQuery() {
+        getValues();
+      }
+
+      function getValues() {
+        let riRo = document.getElementById("riro").value;
+        console.log(riRo);
+      }
+      document
+        .getElementById("generate")
+        .addEventListener("click", () => generateQuery());
+    </script>
+  </body>
+</html>
