@@ -4,47 +4,148 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>riQuery</title>
+    <style>
+      h1 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 2rem;
+        margin: 2rem;
+        color: grey;
+        padding: 1rem;
+        background-color: rgb(50, 50, 50);
+        border-radius: 1rem;
+        box-shadow: 5px 5px 5px rgb(30, 30, 30);
+      }
+
+      #input {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1rem;
+        margin: 2rem;
+        color: grey;
+        padding: 1rem;
+        background-color: rgb(50, 50, 50);
+        border-radius: 1rem;
+        box-shadow: 5px 5px 5px rgb(30, 30, 30);
+      }
+
+      .input-field {
+        background-color: rgb(40, 40, 40);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        height: 2rem;
+        margin: 0.5rem 0 0.5rem 0;
+      }
+
+      #output {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 0.8rem;
+        margin: 2rem;
+        color: white;
+        padding: 1rem;
+        background-color: rgb(50, 50, 50);
+        border-radius: 1rem;
+        box-shadow: 5px 5px 5px rgb(30, 30, 30);
+      }
+
+      #generate {
+        display: block;
+        border: 1pt solid black;
+      }
+
+      body {
+        background-color: rgb(40, 40, 40);
+      }
+
+      div {
+        display: block;
+        padding: 20px 0 20px 0;
+      }
+    </style>
   </head>
   <body>
     <h1>riQuery - Querygenerator Rechtfertigende Indikation</h1>
     <div id="input">
       <div id="ri">
         <h2>RI</h2>
-        <label for="riro">RÖ</label><input type="checkbox" id="riro" />
-        <label for="rict">CT</label><input type="checkbox" id="rict" />
-        <label for="rimr">MR</label><input type="checkbox" id="rimr" />
-        <label for="rimg">MG</label><input type="checkbox" id="rimg" />
-        <label for="rius">US</label><input type="checkbox" id="rius" />
+        <label for="riro">RÖ</label
+        ><input type="checkbox" id="riro" value="RÖ" />
+        <label for="rict">CT</label
+        ><input type="checkbox" id="rict" value="CT" />
+        <label for="rimr">MR</label
+        ><input type="checkbox" id="rimr" value="MR" />
+        <label for="rimg">MG</label
+        ><input type="checkbox" id="rimg" value="MG" />
+        <label for="rius">US</label
+        ><input type="checkbox" id="rius" value="US" />
       </div>
       <div id="sc">
         <h2>Schwangerschaft</h2>
-        <label for="scro">RÖ</label><input type="checkbox" id="scro" />
-        <label for="scct">CT</label><input type="checkbox" id="scct" />
-        <label for="scmr">MR</label><input type="checkbox" id="scmr" />
-        <label for="scmg">MG</label><input type="checkbox" id="scmg" />
-        <label for="scus">US</label><input type="checkbox" id="scus" />
+        <label for="scro">RÖ</label
+        ><input type="checkbox" id="scro" value="RÖ" />
+        <label for="scct">CT</label
+        ><input type="checkbox" id="scct" value="CT" />
+        <label for="scmr">MR</label
+        ><input type="checkbox" id="scmr" value="MR" />
+        <label for="scmg">MG</label
+        ><input type="checkbox" id="scmg" value="MG" />
+        <label for="scus">US</label
+        ><input type="checkbox" id="scus" value="US" />
       </div>
-      <div id="gf">
-        <h2>GFR</h2>
-        <label for="gfro">RÖ</label><input type="checkbox" id="gfro" />
-        <label for="gfct">CT</label><input type="checkbox" id="gfct" />
-        <label for="gfmr">MR</label><input type="checkbox" id="gfmr" />
-        <label for="gfmg">MG</label><input type="checkbox" id="gfmg" />
-        <label for="gfus">US</label><input type="checkbox" id="gfus" />
+      <div>
+        <label for="del">andere Zuweisungen löschen</label
+        ><input type="checkbox" id="del" />
       </div>
-      <label for="del">andere Zuweisungen löschen</label
-      ><input type="checkbox" id="del" />
       <button id="generate">Generate</button>
     </div>
     <div id="output"></div>
     <script>
       function generateQuery() {
-        getValues();
+        riList = getValues()[0];
+        scList = getValues()[1];
+        let riListString = "'" + riList.join("','") + "'";
+        let scListString = "'" + scList.join("','") + "'";
+        deleteOthers = getValues()[2];
+        let deleteString = `UPDATE UNT_WR SET UNT_WR_Prep = '';<br>`;
+        let riQuery = `UPDATE UNT_WR SET UNT_WR_Prep = 'INDIC' WHERE UNT_WR_UnterArt IN (${riListString}) AND UNT_WR_PREP = '';<br>
+        UPDATE UNT_WR SET UNT_WR_Prep = 'INDIC,PREGN' WHERE UNT_WR_UnterArt IN (${riListString}) AND UNT_WR_PREP = 'PREGN';<br>`;
+        let scQuery = `UPDATE UNT_WR SET UNT_WR_Prep = 'PREGN' WHERE UNT_WR_UnterArt IN (${scListString}) AND UNT_WR_PREP = '';<br>
+        UPDATE UNT_WR SET UNT_WR_Prep = 'INDIC,PREGN' WHERE UNT_WR_UnterArt IN (${scListString}) AND UNT_WR_PREP = 'INDIC';`;
+
+        let queryString = `COPY UNT_WR TO 'E:\\Support\\${Date.now()}_unt_wr.csv' WITH DELIMITER '|' CSV HEADER;<br>`;
+
+        if (deleteOthers) {
+          queryString = queryString + deleteString;
+        }
+
+        if (riList.length > 0) {
+          queryString = queryString + riQuery;
+        }
+
+        if (scList.length > 0) {
+          queryString = queryString + scQuery;
+        }
+
+        document.getElementById("output").innerHTML = queryString;
       }
 
       function getValues() {
-        let riRo = document.getElementById("riro").value;
-        console.log(riRo);
+        riList = [];
+        scList = [];
+        deleteOthers = document.getElementById("del").checked;
+
+        let ri = document.querySelectorAll("#ri > input");
+        for (riElement of ri) {
+          if (riElement.checked) {
+            riList.push(riElement.value);
+          }
+        }
+        let sc = document.querySelectorAll("#sc > input");
+        for (scElement of sc) {
+          if (scElement.checked) {
+            scList.push(scElement.value);
+          }
+        }
+        return [riList, scList, deleteOthers];
       }
       document
         .getElementById("generate")
