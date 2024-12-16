@@ -105,11 +105,11 @@
         let riListString = "'" + riList.join("','") + "'";
         let scListString = "'" + scList.join("','") + "'";
         deleteOthers = getValues()[2];
-        let deleteString = `UPDATE UNT_WR SET UNT_WR_Prep = '';<br>`;
-        let riQuery = `UPDATE UNT_WR SET UNT_WR_Prep = 'INDIC' WHERE UNT_WR_UnterArt IN (${riListString}) AND UNT_WR_PREP = '';<br>
-        UPDATE UNT_WR SET UNT_WR_Prep = 'INDIC,PREGN' WHERE UNT_WR_UnterArt IN (${riListString}) AND UNT_WR_PREP = 'PREGN';<br>`;
-        let scQuery = `UPDATE UNT_WR SET UNT_WR_Prep = 'PREGN' WHERE UNT_WR_UnterArt IN (${scListString}) AND UNT_WR_PREP = '';<br>
-        UPDATE UNT_WR SET UNT_WR_Prep = 'INDIC,PREGN' WHERE UNT_WR_UnterArt IN (${scListString}) AND UNT_WR_PREP = 'INDIC';`;
+        let deleteString = `UPDATE UNT_WR SET UNT_WR_PREP = '';<br>`;
+        let riQuery = `UPDATE UNT_WR SET UNT_WR_PREP = 'INDIC' WHERE UNT_WR_UnterArt IN (${riListString}) AND UNT_WR_PREP = '';<br>
+        UPDATE UNT_WR SET UNT_WR_PREP = 'INDIC,PREGN' WHERE UNT_WR_UnterArt IN (${riListString}) AND UNT_WR_PREP = 'PREGN';<br>`;
+        let scQuery = `UPDATE UNT_WR SET UNT_WR_PREP = 'PREGN' WHERE UNT_WR_UnterArt IN (${scListString}) AND UNT_WR_PREP = '';<br>
+        UPDATE UNT_WR SET UNT_WR_PREP = 'INDIC,PREGN' WHERE UNT_WR_UnterArt IN (${scListString}) AND UNT_WR_PREP = 'INDIC';`;
 
         let queryString = `COPY UNT_WR TO 'E:\\Support\\${Date.now()}_unt_wr.csv' WITH DELIMITER '|' CSV HEADER;<br>`;
 
