@@ -77,6 +77,7 @@
         ><input type="checkbox" id="rimg" value="MG" />
         <label for="rius">US</label
         ><input type="checkbox" id="rius" value="US" />
+        <input type="text" id="riff" placeholder="ANG,OT,..." />
       </div>
       <div id="sc">
         <h2>Schwangerschaft</h2>
@@ -90,21 +91,23 @@
         ><input type="checkbox" id="scmg" value="MG" />
         <label for="scus">US</label
         ><input type="checkbox" id="scus" value="US" />
+        <input type="text" id="scff" placeholder="ANG,OT,..." />
       </div>
       <div>
         <label for="del">andere Zuweisungen löschen</label
         ><input type="checkbox" id="del" />
       </div>
-      <button id="generate">Generate</button>
+      <button id="generate">Generieren</button>
     </div>
     <div id="output"></div>
     <script>
       function generateQuery() {
-        riList = getValues()[0];
-        scList = getValues()[1];
+        const passedValues = getValues();
+        let riList = passedValues[0];
+        let scList = passedValues[1];
         let riListString = "'" + riList.join("','") + "'";
         let scListString = "'" + scList.join("','") + "'";
-        deleteOthers = getValues()[2];
+        let deleteOthers = passedValues[2];
         let deleteString = `UPDATE UNT_WR SET UNT_WR_PREP = '';<br>`;
         let riQuery = `UPDATE UNT_WR SET UNT_WR_PREP = (CASE WHEN UNT_WR_PREP LIKE '%PREGN%' THEN 'INDIC,'||UNT_WR_PREP ELSE 'INDIC' END) WHERE UNT_WR_UnterArt IN (${riListString});<br>`;
         //`UPDATE UNT_WR SET UNT_WR_PREP = 'INDIC' WHERE UNT_WR_UnterArt IN (${riListString}) AND UNT_WR_PREP = '';<br>
@@ -141,12 +144,30 @@
             riList.push(riElement.value);
           }
         }
+
         let sc = document.querySelectorAll("#sc > input");
         for (scElement of sc) {
           if (scElement.checked) {
             scList.push(scElement.value);
           }
         }
+
+        const regExFreeField = /^[A-Za-zäöüÄÖÜ,]+$/;
+        let riFreeFieldArray = [];
+        let scFreeFieldArray = [];
+
+        let riFreeField = document.getElementById("riff").value;
+        if (regExFreeField.test(riFreeField)) {
+          riFreeFieldArray = riFreeField.split(",");
+          riList = riList.concat(riFreeFieldArray);
+        }
+
+        let scFreeField = document.getElementById("scff").value;
+        if (regExFreeField.test(scFreeField)) {
+          scFreeFieldArray = scFreeField.split(",");
+          scList = scList.concat(scFreeFieldArray);
+        }
+
         return [riList, scList, deleteOthers];
       }
       document
