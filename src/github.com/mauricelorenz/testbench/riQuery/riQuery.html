@@ -36,6 +36,19 @@
         margin: 0.5rem 0 0.5rem 0;
       }
 
+      #riff,
+      #scff {
+        color: #8a8a8a;
+        background-color: #1a1a1a;
+        border: none;
+        border-radius: 2px;
+        height: 2rem;
+        padding-left: 1rem;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1rem;
+        margin-left: 1rem;
+      }
+
       #output {
         font-family: "Courier New", Courier, monospace;
         font-size: 0.8rem;
@@ -109,10 +122,10 @@
         let scListString = "'" + scList.join("','") + "'";
         let deleteOthers = passedValues[2];
         let deleteString = `UPDATE UNT_WR SET UNT_WR_PREP = '';<br>`;
-        let riQuery = `UPDATE UNT_WR SET UNT_WR_PREP = (CASE WHEN UNT_WR_PREP LIKE '%PREGN%' THEN 'INDIC,'||UNT_WR_PREP ELSE 'INDIC' END) WHERE UNT_WR_UnterArt IN (${riListString});<br>`;
+        let riQuery = `UPDATE UNT_WR SET UNT_WR_PREP = (CASE WHEN UNT_WR_PREP LIKE '%PREGN%' THEN 'INDIC,PREGN' ELSE 'INDIC' END) WHERE UPPER(UNT_WR_UnterArt) IN (${riListString});<br>`;
         //`UPDATE UNT_WR SET UNT_WR_PREP = 'INDIC' WHERE UNT_WR_UnterArt IN (${riListString}) AND UNT_WR_PREP = '';<br>
         //UPDATE UNT_WR SET UNT_WR_PREP = 'INDIC,PREGN' WHERE UNT_WR_UnterArt IN (${riListString}) AND UNT_WR_PREP = 'PREGN';<br>`;
-        let scQuery = `UPDATE UNT_WR SET UNT_WR_PREP = (CASE WHEN UNT_WR_PREP LIKE '%INDIC%' THEN UNT_WR_PREP||',PREGN' ELSE 'PREGN' END) WHERE UNT_WR_UnterArt IN (${scListString});<br>`;
+        let scQuery = `UPDATE UNT_WR SET UNT_WR_PREP = (CASE WHEN UNT_WR_PREP LIKE '%INDIC%' THEN 'INDIC,PREGN' ELSE 'PREGN' END) WHERE UPPER(UNT_WR_UnterArt) IN (${scListString});<br>`;
         //`UPDATE UNT_WR SET UNT_WR_PREP = 'PREGN' WHERE UNT_WR_UnterArt IN (${scListString}) AND UNT_WR_PREP = '';<br>
         //UPDATE UNT_WR SET UNT_WR_PREP = 'INDIC,PREGN' WHERE UNT_WR_UnterArt IN (${scListString}) AND UNT_WR_PREP = 'INDIC';`;
 
