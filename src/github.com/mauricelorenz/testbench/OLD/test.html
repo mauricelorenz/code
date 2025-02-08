@@ -52,16 +52,37 @@
       // }
       // console.log(x);
 
-      switch (1) {
-        case 1:
-          console.log(1);
-        case 2:
-          console.log(2);
-        //break;
-        case 3:
-          console.log(3);
-          break;
+      // switch (1) {
+      //   case 1:
+      //     console.log(1);
+      //   case 2:
+      //     console.log(2);
+      //   //break;
+      //   case 3:
+      //     console.log(3);
+      //     break;
+      // }
+
+      // function power(base, exponent) {
+      //   let result = 1;
+      //   for (let i = 0; i < exponent; i++) {
+      //     result *= base;
+      //   }
+      //   return result;
+      // }
+
+      // console.log(power(3, 2));
+
+      let x = "test";
+      let y = "";
+      for (let letter in x) {
+        if (letter % 2 === 0) {
+          y += x[letter].toUpperCase();
+        } else {
+          y += x[letter].toLowerCase();
+        }
       }
+      console.log(y);
     </script>
   </body>
 </html>
