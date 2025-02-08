@@ -8,15 +8,60 @@
   <body>
     <div id="test"></div>
     <script>
-      async function test() {
-        let test = await fetch("https://jsonplaceholder.typicode.com/users");
-        let testParse = await test.json();
-        document.getElementById("test").innerHTML = JSON.stringify(
-          testParse[0]["name"]
-        );
-        console.log(testParse);
+      // async function test() {
+      //   let test = await fetch("https://jsonplaceholder.typicode.com/users");
+      //   let testParse = await test.json();
+      //   document.getElementById("test").innerHTML = JSON.stringify(
+      //     testParse[0]["name"]
+      //   );
+      //   console.log(testParse);
+      // }
+      // test();
+
+      // function range(min, max) {
+      //   let myArray = [];
+      //   for (let i = min; i <= max; i++) {
+      //     myArray.push(i);
+      //   }
+      //   return myArray;
+      // }
+
+      // function sum(myNumbers) {
+      //   let mySum = 0;
+      //   for (const number of myNumbers) {
+      //     mySum += number;
+      //   }
+      //   return mySum;
+      // }
+
+      // console.log(sum(range(1, 10)));
+      // try {
+      //   let x =
+      //     "Test \n \
+      // Test";
+      // } catch (letError) {
+      //   console.log(letError);
+      // }
+
+      // let y = `Test
+      // Test`;
+      // try {
+      //   console.log(x);
+      // } catch (error) {
+      //   // pass
+      // }
+      // console.log(x);
+
+      switch (1) {
+        case 1:
+          console.log(1);
+        case 2:
+          console.log(2);
+        //break;
+        case 3:
+          console.log(3);
+          break;
       }
-      test();
     </script>
   </body>
 </html>
